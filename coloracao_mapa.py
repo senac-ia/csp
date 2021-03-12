@@ -7,12 +7,10 @@ class RestricaoColoracaoMapa(Restricao):
         self.estado2 = estado2
 
     def esta_satisfeita(self, atribuicao):
-        # If either place is not in the atribuicao then it is not
-        # yet possible for their colors to be conflicting
+        # se nenhum dos estados está com cor atribuída, está satisfeito
         if self.estado1 not in atribuicao or self.estado2 not in atribuicao:
             return True
-        # check the color assigned to place1 is not the same as the
-        # color assigned to place2
+        # cores de estados vizinhos não podem ser igual 
         return atribuicao[self.estado1] != atribuicao[self.estado2]
 
 if __name__ == "__main__":
