@@ -29,21 +29,21 @@ class SatisfacaoRestricoes():
     return True
   
   def busca_backtracking(self, atribuicao = {}):
-    # atribuicao is complete if every variavel is assigned (our base case)
+    # retorna sucesso quando todas as variáveis forem atribuídas
     if len(atribuicao) == len(self.variaveis):
       return atribuicao
 
-    # get all variaveis in the CSP but not in the atribuicao
-    variavel_nao_atribuida  = [v for v in self.variaveis if v not in atribuicao]
+    # pega todas as variáveis que ainda não foram atribuídas
+    variaveis_nao_atribuida  = [v for v in self.variaveis if v not in atribuicao]
 
-    primeira_variavel = variavel_nao_atribuida[0]
+    primeira_variavel = variaveis_nao_atribuida[0]
     for valor in self.dominios[primeira_variavel]:
       atribuicao_local = atribuicao.copy()
       atribuicao_local[primeira_variavel] = valor
-      # if we're still consistent, we recurse (continue)
+      # estamos consistentes, seguir recursão
       if self.esta_consistente(primeira_variavel, atribuicao_local):
         resultado  = self.busca_backtracking(atribuicao_local)
-        # if we didn't find the resultado, we will end up backtracking
+        # para o backtracking se não encontra todos os resultados
         if resultado is not None:
           return resultado
     return None
