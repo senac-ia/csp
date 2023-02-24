@@ -9,7 +9,7 @@ class RestricaoDiferentes(Restricao):
     def esta_satisfeita(self, atribuicao):
         # valores de estados vizinhos não podem ser igual
         valores = [atribuicao[variavel] for variavel in self.variaveis if variavel in atribuicao]
-        return self.set_add_early_exit(valores) # len(set(valores)) == 9 
+        return self.set_add_early_exit(valores)
 
     # https://stackoverflow.com/a/74996168/6369016
     def set_add_early_exit(self, lst):

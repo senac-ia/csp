@@ -1,17 +1,17 @@
 from satisfacao_restricoes import Restricao, SatisfacaoRestricoes
 
 class RestricaoDiferentes(Restricao):
-    def __init__(self, x1, x2, x3, x4):
-        super().__init__([x1, x2, x3, x4])
-        self.variaveis = [x1, x2, x3, x4]
+  def __init__(self, x1, x2, x3, x4):
+    super().__init__([x1, x2, x3, x4])
+    self.variaveis = [x1, x2, x3, x4]
 
-    def esta_satisfeita(self, atribuicao):
-        # Não analise se todos os estados estiverem atribu;idos
-        if not all(variavel in atribuicao for variavel in self.variaveis):
-          return True
-        # cores de estados vizinhos não podem ser igual
-        valores = [atribuicao[variavel] for variavel in self.variaveis]
-        return len(set(valores)) == 4
+  def esta_satisfeita(self, atribuicao):
+    # Não analise se todos os estados estiverem atribu;idos
+    if not all(variavel in atribuicao for variavel in self.variaveis):
+      return True
+    # cores de estados vizinhos não podem ser igual
+    valores = [atribuicao[variavel] for variavel in self.variaveis]
+    return len(set(valores)) == 4 # pouco performático
 
 def imprime(atribuicao):
   print("Sudoku:")
