@@ -34,16 +34,19 @@ class SatisfacaoRestricoes():
       return atribuicao
 
     # pega todas as variáveis que ainda não foram atribuídas
-    variaveis_nao_atribuida  = [v for v in self.variaveis if v not in atribuicao]
+    variaveis_nao_atribuidas  = [v for v in self.variaveis if v not in atribuicao]
 
-    primeira_variavel = variaveis_nao_atribuida[0]
+    primeira_variavel = variaveis_nao_atribuidas[0]
     for valor in self.dominios[primeira_variavel]:
-      atribuicao_local = atribuicao.copy()
-      atribuicao_local[primeira_variavel] = valor
+      atribuicao[primeira_variavel] = valor
       # estamos consistentes, seguir recursão
-      if self.esta_consistente(primeira_variavel, atribuicao_local):
+      if self.esta_consistente(primeira_variavel, atribuicao):
+        atribuicao_local = atribuicao.copy()
+        atribuicao[primeira_variavel] = None
         resultado  = self.busca_backtracking(atribuicao_local)
         # para o backtracking se não encontra todos os resultados
         if resultado is not None:
           return resultado
+      else:
+        atribuicao[primeira_variavel] = None
     return None

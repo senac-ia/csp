@@ -1,20 +1,34 @@
 from satisfacao_restricoes import Restricao, SatisfacaoRestricoes
+import numpy as np
 
 class RestricaoDiferentes(Restricao):
     def __init__(self, x1, x2, x3, x4, x5, x6, x7, x8, x9):
         super().__init__([x1, x2, x3, x4, x5, x6, x7, x8, x9])
-        self.variaveis = [x1, x2, x3, x4, x5, x6, x7, x8, x9]
+        self.variaveis = np.array([x1, x2, x3, x4, x5, x6, x7, x8, x9])
 
     def esta_satisfeita(self, atribuicao):
-        # Não analise se todos os estados estiverem atribu;idos
-        if not all(variavel in atribuicao for variavel in self.variaveis):
-          return True
-        # cores de estados vizinhos não podem ser igual
-        valores = [atribuicao[variavel] for variavel in self.variaveis]
-        return len(set(valores)) == 9
+        # valores de estados vizinhos não podem ser igual
+        valores = [atribuicao[variavel] for variavel in self.variaveis if variavel in atribuicao]
+        return self.set_add_early_exit(valores) # len(set(valores)) == 9 
+
+    # https://stackoverflow.com/a/74996168/6369016
+    def set_add_early_exit(self, lst):
+      s = set()
+      for item in lst:
+        if item in s: return False
+        s.add(item)
+      return True
+
+# print Sudoku
+def imprime(atribuicao):
+  print("Sudoku:")
+  for i in range(1, 10):
+      for j in range(1, 10):
+          print(atribuicao[f"X{i}{j}"], end=" ")
+      print()
 
 if __name__ == "__main__":
-    variaveis = ["X11", "X12", "X13", "X14", "X15", "X16", "X17", "X18", "X19",
+    variaveis = np.array(["X11", "X12", "X13", "X14", "X15", "X16", "X17", "X18", "X19",
                 "X21", "X22", "X23", "X24", "X25", "X26", "X27", "X28", "X29",
                 "X31", "X32", "X33", "X34", "X35", "X36", "X37", "X38", "X39",
                 "X41", "X42", "X43", "X44", "X45", "X46", "X47", "X48", "X49",
@@ -22,10 +36,10 @@ if __name__ == "__main__":
                 "X61", "X62", "X63", "X64", "X65", "X66", "X67", "X68", "X69",
                 "X71", "X72", "X73", "X74", "X75", "X76", "X77", "X78", "X79",
                 "X81", "X82", "X83", "X84", "X85", "X86", "X87", "X88", "X89",
-                "X91", "X92", "X93", "X94", "X95", "X96", "X97", "X98", "X99"]      
+                "X91", "X92", "X93", "X94", "X95", "X96", "X97", "X98", "X99"])   
     dominios = {}
     for variavel in variaveis:
-      dominios[variavel] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      dominios[variavel] = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
     problema = SatisfacaoRestricoes(variaveis, dominios)
 
     # Linhas 
@@ -76,6 +90,6 @@ if __name__ == "__main__":
       }
     )
     if resposta is None:
-        print("Nenhuma resposta encontrada")
+      print("Nenhuma resposta encontrada")
     else:
-        print(resposta)
+      print(imprime(resposta))

@@ -13,6 +13,13 @@ class RestricaoDiferentes(Restricao):
         valores = [atribuicao[variavel] for variavel in self.variaveis]
         return len(set(valores)) == 4
 
+def imprime(atribuicao):
+  print("Sudoku:")
+  for i in range(1, 5):
+      for j in range(1, 5):
+          print(atribuicao[f"X{i}{j}"], end=" ")
+      print()
+
 if __name__ == "__main__":
     variaveis = ["X11", "X12", "X13", "X14",
                 "X21", "X22", "X23", "X24",
@@ -53,4 +60,4 @@ if __name__ == "__main__":
     if resposta is None:
         print("Nenhuma resposta encontrada")
     else:
-        print(resposta)
+        print(imprime(resposta))
