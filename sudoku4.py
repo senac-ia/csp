@@ -48,6 +48,7 @@ if __name__ == "__main__":
     problema.adicionar_restricao(RestricaoDiferentes("X31", "X32", "X41", "X42"))
     problema.adicionar_restricao(RestricaoDiferentes("X33", "X34", "X43", "X44"))
 
+		# No caso do Sudoku, já passamos algumas variáveis já preenchidas
     resposta = problema.busca_backtracking(
       {
         "X11": 3, "X12": 4, "X13": 1,
