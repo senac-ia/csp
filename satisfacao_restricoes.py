@@ -13,7 +13,7 @@ class SatisfacaoRestricoes():
     for variavel in self.variaveis:
         self.restricoes[variavel] = []
         if variavel not in self.dominios:
-            raise LookupError("Cada variávei precisa de um domínio")
+            raise LookupError("Cada variável precisa de um domínio")
 
   def adicionar_restricao(self, restricao):
     for variavel in restricao.variaveis:
