@@ -2,22 +2,22 @@ from satisfacao_restricoes import Restricao, SatisfacaoRestricoes
 import numpy as np
 
 class RestricaoDiferentes(Restricao):
-    def __init__(self, x1, x2, x3, x4, x5, x6, x7, x8, x9):
-        super().__init__([x1, x2, x3, x4, x5, x6, x7, x8, x9])
-        self.variaveis = np.array([x1, x2, x3, x4, x5, x6, x7, x8, x9])
+  def __init__(self, x1, x2, x3, x4, x5, x6, x7, x8, x9):
+    super().__init__([x1, x2, x3, x4, x5, x6, x7, x8, x9])
+    self.variaveis = np.array([x1, x2, x3, x4, x5, x6, x7, x8, x9])
 
-    def esta_satisfeita(self, atribuicao):
-        # valores de estados vizinhos não podem ser igual
-        valores = [atribuicao[variavel] for variavel in self.variaveis if variavel in atribuicao]
-        return self.set_add_early_exit(valores)
+  def esta_satisfeita(self, atribuicao):
+    # valores de estados vizinhos não podem ser iguais
+    valores = [atribuicao[variavel] for variavel in self.variaveis if variavel in atribuicao]
+    return self.set_add_early_exit(valores)
 
-    # https://stackoverflow.com/a/74996168/6369016
-    def set_add_early_exit(self, lst):
-      s = set()
-      for item in lst:
-        if item in s: return False
-        s.add(item)
-      return True
+  # https://stackoverflow.com/a/74996168/6369016
+  def set_add_early_exit(self, lst):
+    s = set()
+    for item in lst:
+      if item in s: return False
+      s.add(item)
+    return True
 
 # print Sudoku
 def imprime(atribuicao):

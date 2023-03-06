@@ -1,9 +1,14 @@
 class Restricao():
-    def __init__(self, variaveis):
-        self.variaveis = variaveis
+  def __init__(self, variaveis):
+      self.variaveis = variaveis
 
-    def esta_satisfeita(self, atribuicao):
-      return True
+  def esta_satisfeita_e_associadas(self, atribuicao):
+    if all(variavel in self.variaveis for variavel in atribuicao):
+      self.esta_satisfeita(atribuicao)
+    return True
+
+  def esta_satisfeita(self, atribuicao):
+    raise NotImplementedError("Subclasses devem implementar este método")
 
 class SatisfacaoRestricoes():
   def __init__(self, variaveis, dominios):
@@ -24,7 +29,7 @@ class SatisfacaoRestricoes():
 
   def esta_consistente(self, variavel, atribuicao):
     for restricoes in self.restricoes[variavel]:
-      if not restricoes.esta_satisfeita(atribuicao):
+      if not restricoes.esta_satisfeita_e_associadas(atribuicao):
         return False
     return True
   
